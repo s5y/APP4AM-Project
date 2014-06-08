@@ -8,9 +8,14 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.TextView;
 import app4am.app.MainActivity;
+import app4am.app.R;
+import app4am.app.basedata.Data;
 
 public class TopicNewsAdapter extends BaseAdapter {
+
+	private static final int TYPE_MAX_COUNT = 2;
 
 	private MainActivity mainActivity;
 	public List<String> topicNews;
@@ -21,62 +26,59 @@ public class TopicNewsAdapter extends BaseAdapter {
 		this.mainActivity = mainActivity;
 		inflater = (LayoutInflater) mainActivity
 				.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-	}
 
-	@Override
-	public int getViewTypeCount() {
-		return 2; // return 2, you have two types that the getView() method will
-					// return, normal(0) and for the last row(1)
-	}
-
-	@Override
-	public int getItemViewType(int position) {
-		return (position == this.getCount() - 1) ? 1 : 0; // if we are at the
-															// last position
-															// then return 1,
-															// for any other
-															// position return 0
+		Data.initTopicNews(topicNews);
 	}
 
 	@Override
 	public int getCount() {
 		// TODO Auto-generated method stub
-		return 0;
+		return topicNews.size();
 	}
 
 	@Override
 	public Object getItem(int position) {
 		// TODO Auto-generated method stub
-		return null;
+		return topicNews.get(position);
 	}
 
 	@Override
 	public long getItemId(int position) {
 		// TODO Auto-generated method stub
+		return position;
+	}
+
+	@Override
+	public int getItemViewType(int position) {
+		//first row
+		if (position == 0)
+			return 1;
+		//not first row
 		return 0;
 	}
 
 	@Override
+	public int getViewTypeCount() {
+		return TYPE_MAX_COUNT;
+	}
+
+	@Override
 	public View getView(int position, View convertView, ViewGroup parent) {
-		View view = convertView;
-		int theType = getItemViewType(position);
-		if (view == null) {
-			ViewHolder holder = new ViewHolder();
-			LayoutInflater vi = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-			if (theType == 0) {
-				// inflate the ordinary row
-				view = vi.inflate(R.layout.list_item_bn, null);
-				holder.textView = (TextView) view.findViewById(R.id.tv_name);
-			} else if (theType == 1) {
-				// inflate the row for the last position
-				view = vi.inflate(R.layout.list_item_record, null);
-				holder.textView = (TextView) view
-						.findViewById(R.id.record_view);
+
+		View row = convertView;
+		int type = getItemViewType(position);
+		String content = topicNews.get(position);
+		if (row == null) {
+			if (type == 1) {
+				row = inflater.inflate(R.layout.row_first_topicnews_list, null);	
+			} else {
+				row = inflater.inflate(R.layout.row_topicnews_list, null);
 			}
-			view.setTag(holder);
 		}
-		// other stuff here, keep in mind that you have a different layout for
-		// your last position so double check what are trying to initialize
+		
+		((TextView)row.findViewById(R.id.topic_news_title)).setText(content);
+		
+		return row;
 	}
 
 }
