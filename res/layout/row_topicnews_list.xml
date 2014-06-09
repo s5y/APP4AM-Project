@@ -10,7 +10,7 @@
         android:layout_marginLeft="4dip"
         android:layout_marginRight="4dip"
         android:layout_marginTop="4dip"
-        android:background="@color/blue"
+        android:background="@color/yellow"
         android:orientation="horizontal" >
 
         <TextView
