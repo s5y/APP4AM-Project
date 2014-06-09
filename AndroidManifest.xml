@@ -6,7 +6,7 @@
 
     <uses-sdk
         android:minSdkVersion="14"
-        android:targetSdkVersion="14" />
+        android:targetSdkVersion="16" />
 
     <application
         android:allowBackup="true"
@@ -21,6 +21,16 @@
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+        </activity>
+        <activity
+            android:name="app4am.app.NewsActivity"
+            android:label="@string/app_name"
+            android:parentActivityName="app4am.app.MainActivity" >
+
+            <!-- Parent activity meta-data to support API level 7+ -->
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="app4am.app.MainActivity" />
         </activity>
     </application>
 
