@@ -11,7 +11,7 @@ import android.widget.BaseAdapter;
 import android.widget.TextView;
 import app4am.app.MainActivity;
 import app4am.app.R;
-import app4am.app.basedata.Data;
+import app4am.app.data.model.Data;
 
 public class TopicNewsAdapter extends BaseAdapter {
 

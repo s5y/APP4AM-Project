@@ -9,6 +9,7 @@ import android.support.v4.view.ViewPager;
 import app4am.app.fragment.NewsFragment;
 import app4am.app.ui.NewsPagerAdapter;
 import app4am.app.ui.NewsTabListener;
+import app4am.app.ui.NewsViewPager;
 
 public class NewsActivity extends FragmentActivity {
 
@@ -17,12 +18,13 @@ public class NewsActivity extends FragmentActivity {
 	 * The pager widget, which handles animation and allows swiping horizontally
 	 * to access previous and next wizard steps.
 	 */
-	private ViewPager newsPager;
+	private NewsViewPager newsPager;
+
 
 	/**
 	 * The pager adapter, which provides the pages to the view pager widget.
 	 */
-	private PagerAdapter pagerAdapter;
+	private NewsPagerAdapter pagerAdapter;
 
 	// tab listener
 	private NewsTabListener newsTabListener = null;
@@ -41,14 +43,13 @@ public class NewsActivity extends FragmentActivity {
 		newsTabListener = new NewsTabListener();
 
 		// Add 4 tabs, specifying the tab's text and TabListener
-
 		for (String itemString : NEWSPAPER) {
 			ab.addTab(ab.newTab().setText(itemString)
 					.setTabListener(newsTabListener));
 		}
 
 		// Instantiate a ViewPager and a PagerAdapter.
-		newsPager = (ViewPager) findViewById(R.id.news_pager);
+		newsPager = (NewsViewPager) findViewById(R.id.news_pager);
 		pagerAdapter = new NewsPagerAdapter(getSupportFragmentManager());
 		newsPager.setAdapter(pagerAdapter);
 		newsPager.setOnPageChangeListener(
@@ -79,4 +80,16 @@ public class NewsActivity extends FragmentActivity {
 		}
 	}
 
+	public NewsPagerAdapter getPagerAdapter() {
+		return pagerAdapter;
+	}
+	
+	public NewsViewPager getNewsPager() {
+		return newsPager;
+	}
+	
+
+	public NewsTabListener getNewsTabListener() {
+		return newsTabListener;
+	}
 }

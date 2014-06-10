@@ -13,22 +13,22 @@ import android.widget.TextView;
 import app4am.app.MainActivity;
 import app4am.app.NewsActivity;
 import app4am.app.R;
-import app4am.app.basedata.Data;
+import app4am.app.data.model.Data;
 import app4am.app.fragment.NewsFragment;
 
 public class NewsAdapter extends BaseAdapter {
 
-	private static final int TYPE_MAX_COUNT = 2;
-
-	private NewsFragment newsFragment;
+	private NewsFragment newsFragment = null; 
 	public List<String> news;
 	private static LayoutInflater inflater = null;
+	private int newpaperID = -1;
 
 	public NewsAdapter(NewsFragment newsFragment) {
 		news = new ArrayList<String>();
 		this.newsFragment = newsFragment;
 		inflater = (LayoutInflater) newsFragment.getActivity()
 				.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+		newpaperID = newsFragment.getNewspaperID();
 
 		Data.initTopicNews(news);
 	}
@@ -69,7 +69,7 @@ public class NewsAdapter extends BaseAdapter {
 
 		((TextView) row.findViewById(R.id.news_title)).setText(content);
 		RelativeLayout rlLayout =  (RelativeLayout)row.findViewById(R.id.news_relative_layout);
-		switch (newsFragment.getNewspaperID()) {
+		switch (newpaperID) {
 		case 0:
 			rlLayout.setBackgroundColor(newsFragment.getResources().getColor(R.color.red));
 			break;
